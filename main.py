@@ -2,7 +2,7 @@ import random
 
 LINE = "--------------------------------------------------------------"
 INFO1 = "This program includes a customized liftoff for the people who's eager to learn rocket science all around the world."
-INFO2 = "There are two main categories of rocket engines: \nLiquid rockets \nSolid rockets \nIn a liquid rocket, the propellants, the fuel and the oxidizer, are stored separately as liquids and are pumped into the \ncombustion chamber of the nozzle where burning occurs. \nIn a solid rocket, the propellants are mixed together and packed into a solid cylinder. \nUnder normal temperature conditions, the propellants do not burn; but they will burn when exposed to a source of heat provided by an igniter. \nOnce the burning starts, it proceeds until all the propellant is exhausted. \nWith a liquid rocket, you can stop the thrust by turning off the flow of propellants. \nWith a solid rocket, you have to destroy the casing to stop the engine."
+INFO2 = "There are two main categories of rocket engines: \nLiquid rockets \nSolid rockets \nIn a liquid rocket, the propellants, the fuel and the oxidizer, are stored separately as liquids and are pumped into the \ncombustion chamber of the nozzle where burning occurs. \nIn a solid rocket, the propellants are mixed together and packed into a solid cylinder. \nUnder normal temperature conditions, the propellants do not burn; \nbut they will burn when exposed to a source of heat provided by an igniter. \nOnce the burning starts, it proceeds until all the propellant is exhausted. \nWith a liquid rocket, you can stop the thrust by turning off the flow of propellants. \nWith a solid rocket, you have to destroy the casing to stop the engine."
 LIQUID_BIPROPELLANTS = random.uniform(2.9, 4.5)*1000
 SOLID_PROPELLANTS = random.uniform(2.1, 3.2)*1000
 
@@ -24,13 +24,13 @@ def away_from_earth(planet):
     if planet == 'Saturn':
         distance = 910374075 - earth_to_sun
     if planet == 'Venus':
-        distance = 67230145 - earth_to_sun
+        distance = earth_to_sun - 67230145 
     if planet == 'Uranus':
         distance = 1907317044 - earth_to_sun
     if planet == 'Neptune':
         distance = 2780191005 - earth_to_sun
     if planet == 'Mercury':
-        distance = 34236781 - earth_to_sun
+        distance = earth_to_sun - 34236781
         
     return distance
 
@@ -56,47 +56,61 @@ def read_from_txt(txt):
         if line != "":
             print(line)
 
-def countdown():
-    cnt = int(input("Launch starts in (hint: type 10) ... "))
-    if cnt == 10:
-        cnt = int(input("in ... "))
-        if cnt == 9:
+def countdown(situation):
+    if situation == 1:
+        cnt = int(input("Launch starts in (hint: type 10) ... "))
+        if cnt == 10:
             cnt = int(input("in ... "))
-            if cnt == 8:
+            if cnt == 9:
                 cnt = int(input("in ... "))
-                if cnt == 7:
+                if cnt == 8:
                     cnt = int(input("in ... "))
-                    if cnt == 6:
+                    if cnt == 7:
                         cnt = int(input("in ... "))
-                        if cnt == 5:
+                        if cnt == 6:
                             cnt = int(input("in ... "))
-                            if cnt == 4:
+                            if cnt == 5:
                                 cnt = int(input("in ... "))
-                                if cnt == 3:
+                                if cnt == 4:
                                     cnt = int(input("in ... "))
-                                    if cnt == 2:
+                                    if cnt == 3:
                                         cnt = int(input("in ... "))
-                                        if cnt == 1:
-                                            print("Launch successfull")
-    else:
-        print("Launch failed. Countdown repeated")
-        countdown()
+                                        if cnt == 2:
+                                            cnt = int(input("in ... "))
+                                            if cnt == 1:
+                                                print("Launch successfull")
+        else:
+            print("Launch failed. Countdown repeated")
+            countdown()
+            
+    if situation == 2:
+        print("1...")
+        time.sleep(3)
+        print("2...")
+        time.sleep(3)
+        print("2...")
+        time.sleep(3)
+        print("LAUNCH!!!!")
+        time.sleep(3)
             
 def acceleration(exhaust, mass, planet):
+    mass * 1000000
+    fuel = 1.40 * 10000
+    
     if planet == 'Mars':
-        acceleration = ((exhaust/mass*1000000) * 1.40*10000) - MARS
+        acceleration = ((exhaust/mass) * fuel) - MARS
     if planet == 'Jupyter':
-        acceleration = ((exhaust/mass*1000000) * 1.40*10000) - JUPYTER
+        acceleration = ((exhaust/mass) * fuel) - JUPYTER
     if planet == 'Saturn':
-        acceleration = ((exhaust/mass*1000000) * 1.40*10000) - SATURN
+        acceleration = ((exhaust/mass) * fuel) - SATURN
     if planet == 'Venus':
-        acceleration = ((exhaust/mass*1000000) * 1.40*10000) - VENUS
+        acceleration = ((exhaust/mass) * fuel) - VENUS
     if planet == 'Uranus':
-        acceleration = ((exhaust/mass*1000000) * 1.40*10000) - URANUS
+        acceleration = ((exhaust/mass) * fuel) - URANUS
     if planet == 'Neptune':
-        acceleration = ((exhaust/mass*1000000) * 1.40*10000) - NEPTUNE
+        acceleration = ((exhaust/mass) * fuel) - NEPTUNE
     if planet == 'Mercury':
-        acceleration = ((exhaust/mass*1000000) * 1.40*10000) - MERCURY
+        acceleration = ((exhaust/mass) * fuel) - MERCURY
     return acceleration
 
 def main():
@@ -117,12 +131,13 @@ def main():
                 print("There are four major components to any full scale rocket: \nThe Structural System, or Frame \nThe Payload System \nThe Guidance System \nPropulsion System")
                 time.sleep(3)
                 print(LINE)
-                print("Start with the Structural System. The structural system of a rocket includes all of the parts which make up the frame of the rocket; \nthe cylindrical body, the fairings, and any control fins.")
+                print("Start with the Structural System. \nThe structural system of a rocket includes all of the parts which make up the frame of the rocket; \nthe cylindrical body, the fairings, and any control fins.")
                 time.sleep(3)
                 print(LINE)
                 mass = float(input("First you have to select mass of your rocket (value must be as 1.80 or 3.21 etc.) : "))
                 print(LINE)
-                selection = input("Weight of a rocket is highly important. \nTo reduce your weight during liftoff which Structural System do you prefer? Parallel or Serial? (P/S) : ")
+                time.sleep(3)
+                selection = input("Weight of a rocket is highly important. \nTo reduce your weight during liftoff which Structural System do you prefer? \nParallel or Serial? (P/S) : ")
                 print(LINE)
                 if selection == 'P':
                     print(f"{called}, Structural System of your rocket is being prepared by engineers and technicians. Take a look: ")
@@ -135,28 +150,33 @@ def main():
                     time.sleep(3)
                     read_from_txt('serial')
                 print(LINE)
+                time.sleep(3)
                 print("It seems perfect. It is time for the Payload System. The payload of a rocket depends on the rocket's mission.")
                 payload = input(f"{called}, please determine for the Payload System. Astronaut or Satellite? (A/S) : ")
                 print(LINE)
                 if payload == 'A':
                     ast = input("Announce your brave astronaut's name: ")
-                    print(f"{ast} now is training for a very honorable journey")
+                    print(f" Now {ast} is training for a very honorable journey")
                     time.sleep(3)
                     read_from_txt('A')
                 if payload == 'S':
                     sat = input("Name your satellite: ")
-                    print(f"{sat} now is preaparing for a very honorable journey")
+                    print(f"Now {sat} is preaparing for a very honorable journey")
                     time.sleep(3)
                     read_from_txt('S')
                 print(LINE)
+                time.sleep(3)
                 print("Two major components left. The guidance system of a rocket includes very sophisticated sensors, on-board computers, radars, and communication equipment.")
-                time.sleep(2)
+                time.sleep(3)
                 print("Kara Solo's qualified employees figured out the guidance system of your rocket. We're on last stage!")
                 print(LINE)
+                time.sleep(3)
                 print("The propulsion of a rocket includes all of the parts which make up the rocket engine; the tanks pumps, propellants, power head, and rocket nozzle . \nThe function of the propulsion system is to produce thrust.")
                 time.sleep(4)
-                #print(LINE)
-                engine = input(f"For that you have to select an engine type for your rocket. {INFO2}. \nMake your choice (L/S) : ")
+                print(LINE)
+                pirnt("For that you have to select an engine type for your rocket.")
+                time.sleep(4)
+                engine = input(f"{INFO2}. \nMake your choice (L/S) : ")
                 print(LINE)
                 print(f"{called}, your rocket and all the major systems are ready to liftoff.")
                 if payload == 'A':
@@ -167,7 +187,7 @@ def main():
                 distance = away_from_earth(planet)
                 print(f"{planet} is {distance} km away from the earth. Get ready for liftoff.")
                 print("Countdown from 10 - 0 is starting")
-                countdown()
+                countdown(1)
                 print(LINE)
                 if payload == 'A':
                     print(f"Now your astronaut {ast} is exploring the mysteries of outer space. Everything seems right. \nJourney to the {planet} has started.")
@@ -208,27 +228,36 @@ def main():
                             time.sleep(3)
                             read_from_txt('N')
                             print(LINE)
-                            print(f"{ast} is ready for a very quick liftoff. Everthing is checked. \n1...\n2...\n3... \nLaunch!!!!")
-                            print(f"Hopefully {ast} discovered the wormhole. Now returning to the Earth begins...")
                             time.sleep(3)
+                            print(f"{ast} is ready for a very quick liftoff. Everthing is checked.")
+                            countdown(2)
+                            time.sleep(3)
+                            print(f"Hopefully {ast} discovered the wormhole. Now returning to the Earth begins...")
+                            time.sleep(6)
                             print(f"{ast} arrived to the Earth successfully!")
                             print(LINE)
+                            time.sleep(3)
                             new = input(f"CONGURATULATIONS {called}! Your very first liftoff is successfull. Are you ready for a new one? (Y/N) : ")
                             if new == 'Y':
                                 continue
                             else:
+                                time.sleep(2)
+                                print(LINE)
                                 print("Thanks for your participation about learning a new subject such as rocket science. I hope you enjoyed from the game.")
                                 break
                         if wonder == 'N':
                             print(f"Base Control: Confirmed {ast}. After your last checks you can return to the Earth.")
                             print(f"Hopefully {ast} discovered the wormhole. Now returning to the Earth begins...")
-                            time.sleep(3)
+                            time.sleep(6)
                             print(f"{ast} arrived to the Earth successfully!")
                             print(LINE)
+                            time.sleep(3)
                             new = input(f"CONGURATULATIONS {called}! Your very first liftoff is successfull. Are you ready for a new one? (Y/N) : ")
                             if new == 'Y':
                                 continue
                             else:
+                                time.sleep(2)
+                                print(LINE)
                                 print("Thanks for your participation about learning a new subject such as rocket science. I hope you enjoyed from the game.")
                                 break
                     else:
@@ -262,18 +291,31 @@ def main():
                                 print("Base control: We need your acceleration for this liftoff.")
                                 if engine == 'L':
                                     time.sleep(3)
+                                    print("Thrust stopped by turning off the flow of propellants")
+                                    time.sleep(3)
                                     print(f"{ast}: Base Control I have an emergency in here. Roger")
+                                    time.sleep(3)
                                     print(f"Base Control: Understood {ast}. Your acceleration is being calculated")
                                     acl = acceleration(LIQUID_BIPROPELLANTS, mass, planet)
                                     print(f"Base Control: Acceleration confirmed as {acl} m/s. Ready to liftoff.")
+                                    countdown(2)
+                                    time.sleep(3)
                                 if engine == 'S':
                                     time.sleep(3)
+                                    print("Casing destroyed to stop the engine")
+                                    time.sleep(3)
                                     print(f"{ast}: Base Control I have an emergency in here. Roger")
+                                    time.sleep(3)
                                     print(f"Base Control: Understood {ast}. Your acceleration is being calculated")
                                     acl = acceleration(SOLID_PROPELLANTS, mass, planet)
-                                    print(f"Base Control: Acceleration confirmed as {acl} m/s. Ready to liftoff.\n1...\n2...\n3... \nLaunch!!!!")
+                                    print(f"Base Control: Acceleration confirmed as {acl} m/s. Ready to liftoff.")
+                                    countdown(2)
+                                    time.sleep(3)
                             else:
-                                print(f"{ast} is ready for a very quick liftoff. Everthing is checked. \n1...\n2...\n3... \nLaunch!!!!")
+                                time.sleep(3)
+                                print(f"{ast} is ready for a very quick liftoff. Everthing is checked.")
+                                countdown(2)
+                                time.sleep(3)
                         else:
                             time.sleep(3)
                             if distance > 400171:
@@ -283,18 +325,22 @@ def main():
                                     print(f"Base Control: Understood {ast}. Your acceleration is being calculated")
                                     acl = acceleration(LIQUID_BIPROPELLANTS, mass, planet)
                                     print(f"Base Control: Acceleration confirmed as {acl} m/s. Ready to liftoff.")
+                                    countdown(2)
                                 if engine == 'S':
                                     time.sleep(3)
                                     print(f"Base Control: Understood {ast}. Your acceleration is being calculated")
                                     acl = acceleration(SOLID_PROPELLANTS, mass, planet)
-                                    print(f"Base Control: Acceleration confirmed as {acl} m/s. Ready to liftoff.\n1...\n2...\n3... \nLaunch!!!!")
-                        time.sleep(4)
+                                    print(f"Base Control: Acceleration confirmed as {acl} m/s.")
+                                    countdown(2)
+                        time.sleep(6)
                         print(f"{ast} arrived to the Earth successfully!")
                         print(LINE)
+                        time.sleep(3)
                         new = input(f"CONGURATULATIONS {called}! Your very first liftoff is successfull. Are you ready for a new one? (Y/N) : ")
                         if new == 'Y':
                             continue
                         else:
+                            time.sleep(2)
                             print("Thanks for your participation about learning a new subject such as rocket science. I hope you enjoyed from the game.")
                             break
                             
@@ -318,11 +364,12 @@ def main():
                         print(LINE)
                         print("We're checking our last controls before arriving near the planet.")
                         print(f"Everything confirmed about {sat}'s destianation and situation.")
-                        time.sleep(2)
+                        time.sleep(6)
                         new = input(f"CONGURATULATIONS {called}! Your very first liftoff is successfull. Are you ready for a new one? (Y/N) : ")
                         if new == 'Y':
                             continue
                         else:
+                            time.sleep(2)
                             print("Thanks for your participation about learning a new subject such as rocket science. I hope you enjoyed from the game.")
                             break
                     else:
@@ -333,11 +380,12 @@ def main():
                             i += 1
                         print("We're checking our last controls before arriving near the planet.")
                         print(f"Everything confirmed about {sat}'s destianation and situation.")
-                        time.sleep(2)
+                        time.sleep(6)
                         new = input(f"CONGURATULATIONS {called}! Your very first liftoff is successfull. Are you ready for a new one? (Y/N) : ")
                         if new == 'Y':
                             continue
                         else:
+                            time.sleep(2)
                             print("Thanks for your participation about learning a new subject such as rocket science. I hope you enjoyed from the game.")
                             break
 
